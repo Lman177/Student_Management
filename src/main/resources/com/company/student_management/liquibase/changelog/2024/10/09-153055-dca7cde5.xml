@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1" author="Student_Management">
+        <createTable tableName="TEACHER_ROOM">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_TEACHER_ROOM"/>
+            </column>
+            <column name="ROOM_ID" type="UUID"/>
+            <column name="TEACHER_ID" type="UUID"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="2" author="Student_Management">
+        <createIndex indexName="IDX_TEACHER_ROOM_ROOM" tableName="TEACHER_ROOM">
+            <column name="ROOM_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="ROOM_ID" baseTableName="TEACHER_ROOM"
+                                 constraintName="FK_TEACHER_ROOM_ON_ROOM" referencedColumnNames="ID"
+                                 referencedTableName="ROOM"/>
+    </changeSet>
+    <changeSet id="3" author="Student_Management">
+        <createIndex indexName="IDX_TEACHER_ROOM_TEACHER" tableName="TEACHER_ROOM">
+            <column name="TEACHER_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="TEACHER_ID" baseTableName="TEACHER_ROOM"
+                                 constraintName="FK_TEACHER_ROOM_ON_TEACHER" referencedColumnNames="ID"
+                                 referencedTableName="TEACHER"/>
+    </changeSet>
+</databaseChangeLog>

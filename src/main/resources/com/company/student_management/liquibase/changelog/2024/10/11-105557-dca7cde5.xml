@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1" author="Student_Management">
+        <addColumn tableName="SCHOOL">
+            <column name="ADDRESS" type="VARCHAR(255)"/>
+        </addColumn>
+
+        <addNotNullConstraint columnName="ADDRESS" defaultNullValue="''" tableName="SCHOOL"/>
+    </changeSet>
+    <changeSet id="2" author="Student_Management">
+        <addColumn tableName="SCHOOL">
+            <column name="CODE" type="VARCHAR(255)"/>
+        </addColumn>
+
+        <addNotNullConstraint columnName="CODE" defaultNullValue="''" tableName="SCHOOL"/>
+    </changeSet>
+    <changeSet id="3" author="Student_Management">
+        <addColumn tableName="SCHOOL">
+            <column name="NAME" type="VARCHAR(255)"/>
+        </addColumn>
+
+        <addNotNullConstraint columnName="NAME" defaultNullValue="''" tableName="SCHOOL"/>
+    </changeSet>
+</databaseChangeLog>

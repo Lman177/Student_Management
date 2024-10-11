@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      xmlns:c="http://jmix.io/schema/flowui/jpql-condition"
+      title="msg://subjectListView.title"
+      focusComponent="subjectsDataGrid">
+    <data>
+        <collection id="subjectsDc"
+                    class="com.company.student_management.entity.Subject">
+            <fetchPlan extends="_base"/>
+            <loader id="subjectsDl" readOnly="true">
+                <query>
+                    <![CDATA[select e from Subject e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+
+    </facets>
+    <actions>
+        <action id="selectAction" type="lookup_select"/>
+        <action id="discardAction" type="lookup_discard"/>
+    </actions>
+    <layout>
+        <hbox >
+            <textField id="nameField" property="subject" placeholder="Name Field" classNames="text-field"/>
+            <textField id="subjectCodeField" property="subject" placeholder="Subject Code Field" classNames="text-field"/>
+            <button id="searchButton" title="Search" icon="SEARCH"/>
+        </hbox>
+        <hbox id="buttonsPanel" classNames="buttons-panel">
+            <button id="createBtn" action="subjectsDataGrid.create"/>
+            <button id="editBtn" action="subjectsDataGrid.edit"/>
+            <button id="removeBtn" action="subjectsDataGrid.remove"/>
+            <simplePagination id="pagination" dataLoader="subjectsDl"/>
+        </hbox>
+        <dataGrid id="subjectsDataGrid"
+                  width="100%"
+                  minHeight="20em"
+                  dataContainer="subjectsDc"
+                  columnReorderingAllowed="true">
+            <actions>
+                <action id="create" type="list_create"/>
+                <action id="edit" type="list_edit"/>
+                <action id="remove" type="list_remove"/>
+            </actions>
+            <columns resizable="true">
+                <column property="name"/>
+                <column property="subjectCode"/>
+            </columns>
+        </dataGrid>
+        <hbox id="lookupActions" visible="false">
+            <button id="selectBtn" action="selectAction"/>
+            <button id="discardBtn" action="discardAction"/>
+        </hbox>
+    </layout>
+</view>

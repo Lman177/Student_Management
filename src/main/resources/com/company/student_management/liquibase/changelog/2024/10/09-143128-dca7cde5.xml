@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1" author="Student_Management">
+        <createTable tableName="CLASS">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_CLASS"/>
+            </column>
+            <column name="NAME" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="SCHOOL_ID" type="UUID"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="2" author="Student_Management">
+        <createTable tableName="SCHOOL">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_SCHOOL"/>
+            </column>
+            <column name="VERSION" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="3" author="Student_Management">
+        <createTable tableName="STUDENT">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_STUDENT"/>
+            </column>
+            <column name="NAME" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="AGE" type="INT"/>
+            <column name="ADDRESS" type="VARCHAR(255)"/>
+            <column name="VERSION" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="4" author="Student_Management">
+        <createTable tableName="STUDENT_CLASS">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_STUDENT_CLASS"/>
+            </column>
+            <column name="STUDENT_ENTITY_ID" type="UUID"/>
+            <column name="CLASS_ENTITY_ID" type="UUID"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="5" author="Student_Management">
+        <createTable tableName="TEACHER">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_TEACHER"/>
+            </column>
+            <column name="NAME" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="AGE" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ADDRESS" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="VERSION" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="6" author="Student_Management">
+        <createTable tableName="TEACHER_CLASS">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_TEACHER_CLASS"/>
+            </column>
+            <column name="TEACHER_ENTITY_ID" type="UUID"/>
+            <column name="CLASS_ENTITY_ID" type="UUID"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="7" author="Student_Management">
+        <createIndex indexName="IDX_CLASS_SCHOOL" tableName="CLASS">
+            <column name="SCHOOL_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="SCHOOL_ID" baseTableName="CLASS" constraintName="FK_CLASS_ON_SCHOOL"
+                                 referencedColumnNames="ID" referencedTableName="SCHOOL"/>
+    </changeSet>
+    <changeSet id="8" author="Student_Management">
+        <createIndex indexName="IDX_STUDENT_CLASS_CLASS_ENTITY" tableName="STUDENT_CLASS">
+            <column name="CLASS_ENTITY_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="CLASS_ENTITY_ID" baseTableName="STUDENT_CLASS"
+                                 constraintName="FK_STUDENT_CLASS_ON_CLASS_ENTITY" referencedColumnNames="ID"
+                                 referencedTableName="CLASS"/>
+    </changeSet>
+    <changeSet id="9" author="Student_Management">
+        <createIndex indexName="IDX_STUDENT_CLASS_STUDENT_ENTITY" tableName="STUDENT_CLASS">
+            <column name="STUDENT_ENTITY_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="STUDENT_ENTITY_ID" baseTableName="STUDENT_CLASS"
+                                 constraintName="FK_STUDENT_CLASS_ON_STUDENT_ENTITY" referencedColumnNames="ID"
+                                 referencedTableName="STUDENT"/>
+    </changeSet>
+    <changeSet id="10" author="Student_Management">
+        <createIndex indexName="IDX_TEACHER_CLASS_CLASS_ENTITY" tableName="TEACHER_CLASS">
+            <column name="CLASS_ENTITY_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="CLASS_ENTITY_ID" baseTableName="TEACHER_CLASS"
+                                 constraintName="FK_TEACHER_CLASS_ON_CLASS_ENTITY" referencedColumnNames="ID"
+                                 referencedTableName="CLASS"/>
+    </changeSet>
+    <changeSet id="11" author="Student_Management">
+        <createIndex indexName="IDX_TEACHER_CLASS_TEACHER" tableName="TEACHER_CLASS">
+            <column name="TEACHER_ENTITY_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="TEACHER_ENTITY_ID" baseTableName="TEACHER_CLASS"
+                                 constraintName="FK_TEACHER_CLASS_ON_TEACHER_ENTITY" referencedColumnNames="ID"
+                                 referencedTableName="TEACHER"/>
+    </changeSet>
+</databaseChangeLog>
